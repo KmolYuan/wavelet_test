@@ -4,7 +4,7 @@ load path
 name = {'X Axis', 'Y Axis'};
 path = [path, path(1)];  % Back to head
 curve = {real(path), imag(path)};
-level = 4;
+level = 3;
 scales = 1;
 
 tic
@@ -18,6 +18,7 @@ full_figure('Discrete Wavelet Transform')
 for i = 1:2
     dwt_plot(name{i}, curve{i}, i)
 end
+return
 full_figure('Continuous Wavelet Transform')
 for i = 1:2
     cwt_plot(name{i}, curve{i}, i, scales)
