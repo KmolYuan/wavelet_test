@@ -1,11 +1,12 @@
 clear; close all
 
 load path
+path = [path, path(1)];  % Back to head
 global N level wname min_link x_ac2 x_detail2 y_ac2 y_detail2
 N = length(path);  % The lenth of the path
 level = 3;  % The level of decomposition
 wname = 'db3';  % Daubechies¡¦ orthogonal function wavelets D3
-min_link = 2.7;
+min_link = 2.75;
 [x_ac2, x_detail2] = decomposition(real(path), level);
 [y_ac2, y_detail2] = decomposition(imag(path), level);
 
@@ -21,6 +22,6 @@ fprintf('iter: %i\n', out.iterations)
 fprintf('exit: %i\n', flag)
 fprintf('a0: (%f, %f)\n', x(1:2))
 fprintf('b0: (%f, %f)\n', x(3:4))
-fprintf('l: %f, %f, %f, %f, %f\n', x(5:9))
+fprintf('l: [%f, %f, %f, %f, %f]\n', x(5:9))
 draw_linkage(x, path)
 toc
