@@ -68,14 +68,19 @@ end
 
 function dwt_plot(name, path, index)
 [a, d] = dwt(path, 'sym4');
-subplot(2, 2, index)
+subplot(3, 2, index)
 plot(a)
 grid on
 title(['Approximation Coefficients of ', name])
-subplot(2, 2, index + 2)
+subplot(3, 2, index + 2)
 plot(d)
 grid on
 title(['Detail Coefficients of ', name])
+new_path = idwt(a, d, 'sym4');
+subplot(3, 2, index + 4)
+plot(new_path)
+grid on
+title(['Inverse Wavelet Transformation of ', name])
 end
 
 function cwt_plot(name, path, index, scales)

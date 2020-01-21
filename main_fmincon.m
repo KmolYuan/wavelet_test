@@ -10,9 +10,11 @@ level = 3;  % The level of decomposition
 tic
 % x0 = [a0x, a0y, b0x, b0y, l1, l2, l3, l4, l5];
 x0 = [0, 0, 50, 0, 30, 53.85, 50, 50, 58.31];
-opt = optimoptions(@fmincon, 'Algorithm', 'sqp', 'Display', 'off');
-[x, fval, flag, out] = fmincon(@obj, x0, [], [], [], [], [], [], @nonlcon, opt);
-fprintf('iter: %i\n', out.iterations)
+% opt = optimoptions(@fmincon, 'Algorithm', 'sqp', 'Display', 'off');
+% [x, fval, flag, out] = fmincon(@obj, x0, [], [], [], [], [], [], @nonlcon, opt);
+opt = optimoptions(@ga, 'Display', 'off', 'MaxGenerations', 300, 'PopulationSize', 500);
+[x, fval, flag, out] = ga(@obj, 9, [], [], [], [], [-9e9, -9e9, -9e9, -9e9, 5, 5, 5, 5, 5], [], @nonlcon, opt);
+% fprintf('iter: %i\n', out.iterations)
 fprintf('exit: %i\n', flag)
 fprintf('f(%f, %f, %f, %f, %f, %f, %f, %f, %f) = %f\n', x, fval)
 draw_linkage(x, path)
