@@ -19,7 +19,7 @@ full_figure('Discrete Wavelet Transform')
 for i = 1:2
     dwt_plot(name{i}, curve{i}, i, wname)
 end
-return
+
 full_figure('Continuous Wavelet Transform')
 for i = 1:2
     cwt_plot(name{i}, curve{i}, i, scales)

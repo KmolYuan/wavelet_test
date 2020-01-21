@@ -1,8 +1,6 @@
 function path = build_fourbar(a0, b0, len)
-% Return the path from the dimension.
-% size(l) == 5.
+% Return the path from the dimension. size(l) == 5.
 global N
-
 path(1:N) = 0;
 theta = linspace(0, 2 * pi, N);
 for i = 1:N
