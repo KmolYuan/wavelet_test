@@ -1,4 +1,4 @@
-clear; close all; clc;
+clear; close all
 
 load path
 name = {'X Axis', 'Y Axis'};
@@ -6,17 +6,18 @@ path = [path, path(1)];  % Back to head
 curve = {real(path), imag(path)};
 level = 3;
 scales = 1;
+wname = 'db3';
 
 tic
 full_figure('Target Path')
 draw_curve(name, curve)
 full_figure('Wavelet Decomposition')
 for i = 1:2
-    decompose_wavelet(name{i}, curve{i}, i, level)
+    decompose_wavelet(name{i}, curve{i}, i, level, wname)
 end
 full_figure('Discrete Wavelet Transform')
 for i = 1:2
-    dwt_plot(name{i}, curve{i}, i)
+    dwt_plot(name{i}, curve{i}, i, wname)
 end
 return
 full_figure('Continuous Wavelet Transform')
@@ -46,15 +47,15 @@ for i = 1:2
 end
 end
 
-function decompose_wavelet(name, path, index, level)
+function decompose_wavelet(name, path, index, level, wname)
 persistent col
 if isempty(col)
     col = 2;
 end
-[c, l] = wavedec(path, level, 'db2');
+[c, l] = wavedec(path, level, wname);
 row = 1 + level;
 subplot(row, col, index)
-plot(appcoef(c, l, 'db2'))
+plot(appcoef(c, l, wname))
 grid on
 title(['Approximation Coefficients of ', name])
 detail(1:level) = detcoef(c, l, 1:level);
@@ -66,8 +67,8 @@ for i = 1:level
 end
 end
 
-function dwt_plot(name, path, index)
-[a, d] = dwt(path, 'sym4');
+function dwt_plot(name, path, index, wname)
+[a, d] = dwt(path, wname);
 subplot(3, 2, index)
 plot(a)
 grid on
@@ -76,7 +77,7 @@ subplot(3, 2, index + 2)
 plot(d)
 grid on
 title(['Detail Coefficients of ', name])
-new_path = idwt(a, d, 'sym4');
+new_path = idwt(a, d, wname);
 subplot(3, 2, index + 4)
 plot(new_path)
 grid on

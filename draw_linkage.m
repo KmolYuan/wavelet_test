@@ -15,6 +15,8 @@ link(a1, p)
 link(b1, p)
 plot(real(path_new), imag(path_new))
 hold on
+error = path_new(end) - target_path(end);
+target_path = target_path + error;
 plot(real(target_path), imag(target_path))
 
     function link(p1, p2)

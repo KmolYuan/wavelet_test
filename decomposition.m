@@ -1,5 +1,6 @@
 function [approx_coeff, detail] = decomposition(path, level)
-[c, l] = wavedec(path, level, 'db2');
-approx_coeff = appcoef(c, l, 'db2');
+global wname
+[c, l] = wavedec(path, level, wname);
+approx_coeff = appcoef(c, l, wname);
 detail(1:level) = detcoef(c, l, 1:level);
 end
