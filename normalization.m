@@ -44,6 +44,8 @@ inertia = inertia ./ [3, 3, 6];
 alpha = 0.5 * atan2(2 * inertia(3), inertia(2) - inertia(1));
 if inertia(1) > inertia(2)
     alpha = alpha + pi / 2;
+elseif inertia(1) == inertia(2)
+    alpha = 0;
 end
 bound = [min([c.x]), max([c.x]), min([c.y]), max([c.y])];
 w = bound(2) - bound(1);
@@ -53,6 +55,6 @@ tm = [cos(alpha) / w, sin(alpha) / w, -bound(1) / w;
 new_path(1:length(c)) = 0;
 for i = 1:length(c)
     t = tm * [c(i).x; c(i).y; 1];
-    new_path(i) = t(1) + t(2) * 1j;
+    new_path(i) = t(1, 1) + t(2, 1) * 1j;
 end
 end
