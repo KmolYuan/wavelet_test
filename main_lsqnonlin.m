@@ -1,6 +1,7 @@
 clear; close all
 
 load path
+path = [path, path(1)];  % Back to head
 global N level wname x_ac2 x_detail2 y_ac2 y_detail2
 N = length(path);  % The lenth of the path
 level = 3;  % The level of decomposition
