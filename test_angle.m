@@ -1,6 +1,6 @@
 clear; clc; close all;
 
-nc_path1 = [[33.2993894897132, 66.950186339472];
+c_path1 = [[33.2993894897132, 66.950186339472];
     [32.909553722442155, 67.06356492867744];
     [32.51185229505143, 67.16817400473596];
     [32.106540567741845, 67.26397467216344];
@@ -2178,7 +2178,7 @@ nc_path3 = [[36.299803849288786, 81.95002457121691];
     [36.2998038492885, 81.95002457121706];
     [36.299803849288516, 81.95002457121706];
 ];
-show_data(nc_path1, 'img/non-crossed-path1.png', 'img/non-crossed1.png')
+show_data(c_path1, 'img/non-crossed-path1.png', 'img/non-crossed1.png')
 show_data(c_path2, 'img/non-crossed-path2.png', 'img/non-crossed2.png')
 show_data(c_path3, 'img/non-crossed-path3.png', 'img/non-crossed3.png')
 show_data(nc_path1, 'img/crossed-path1.png', 'img/crossed1.png')
@@ -2206,13 +2206,25 @@ for t = 1:len
 end
 k(1:len) = 0;
 for t = 1:len
-    k(t) = abs(path_d1(t, 1) * path_d2(t, 2) - path_d2(t, 1) * path_d1(t, 2)) /...
+    k(t) = (path_d1(t, 1) * path_d2(t, 2) - path_d2(t, 1) * path_d1(t, 2)) /...
            (path_d1(t, 1)^2 + path_d1(t, 2)^2)^1.5;
+end
+k_big(1:len) = 0;
+for t = 1:len
+    if t > 1
+        k_big(t) = k_big(t - 1);
+    end
+    k_big(t) = k_big(t) + abs(k(t));
 end
 axis = figure;
 plot(path(:, 1), path(:, 2))
 saveas(axis, file1)
 axis = figure;
+subplot(1, 2, 1)
 plot(k)
+title('Curvature')
+subplot(1, 2, 2)
+plot(k_big)
+title('K')
 saveas(axis, file2)
 end
