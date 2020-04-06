@@ -7,11 +7,12 @@ end
 len(1:length(path) + 1) = 0;
 centre = struct('x', 0, 'y', 0);
 for i = 1:length(path)
-    if i - 1 < 1
-        continue
-    end
     c1 = path(i);
-    c2 = path(i - 1);
+    if i - 1 < 1
+        c2 = path(end);
+    else
+        c2 = path(i - 1);
+    end
     len(i) = hypot(c2.x - c1.x, c2.y - c1.y);
     centre.x = centre.x + (c2.x + c1.x) * len(i);
     centre.y = centre.y + (c2.y + c1.y) * len(i);
@@ -21,11 +22,12 @@ centre.x = centre.x / (2 * len(end));
 centre.y = centre.x / (2 * len(end));
 inertia = [0, 0, 0];  % xx, yy, xy
 for i = 1:length(path)
-    if i - 1 < 1
-        continue
-    end
     c1 = path(i);
-    c2 = path(i - 1);
+    if i - 1 < 1
+        c2 = path(end);
+    else
+        c2 = path(i - 1);
+    end
     inertia(1) = inertia(1) + len(i) * (...
         (c2.y - centre.y)^2 +...
         (c1.y - centre.y)^2 +...
